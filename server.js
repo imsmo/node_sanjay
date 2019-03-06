@@ -30,75 +30,8 @@ app.use(bodyParser.urlencoded({
 }));
 
 //Ser Routes
-
-//Add array value API
-app.post('/add_note', (req, res) => {
-    return Notes.add(req, res);
-});
-
-//Delete array value API
-app.post('/delete_note', (req, res) => {
-    return Notes.remove(req, res);
-});
-
-//Update array value API
-app.post('/update_note', (req, res) => {
-    return Notes.update(req, res);
-});
-
-//List array value API
-app.get('/list_note', (req, res) => {
-    return Notes.list(req, res);
-});
-
-//List Array using promise method
-app.get('/list_note_promise', (req, res) => {
-    Notes.getList(req, res).then((data) => {
-            console.log("Data Return", data);
-            return res.send({
-                'status': 1,
-                'message': 'Note listed successfully',
-                'data': data
-            });
-            //Call another method and send on second promise result
-            //return Notes.getList(req,res);
-        })
-        //another method promise result
-        //.then((data)=>{
-        //Second promiss result
-        //})
-        .catch((err) => {
-            return res.send({
-                'status': 0,
-                'message': err,
-                'data': null
-            });
-        });
-});
-//List Array using Async Await method
-app.get('/list_note_async_await', async(req, res) => {
-    try {
-        var notes = await Notes.getList(req, res);
-        if (notes) {
-            res.send({ 'status': 1, 'message': 'Notes Listed Successfully', 'data': notes });
-        } else {
-            throw new Error("Error getting data from Notes.getList");
-        }
-    } catch (err) {
-        console.log("ERR", err);
-        res.send({ 'status': 0, 'message': "Data not found error", "data": null });
-    }
-});
-
-//Add array value Using database 
-app.post('/add_note_db', (req, res) => {
-    return Notes.add_db(req, res);
-});
-
-//List array value Using database 
-app.get('/list_note_db', (req, res) => {
-    return Notes.list_db(req, res);
-});
+require('./routes/index')(router);
+app.use('/', router);
 
 //Start server
 var PORT = 3000;

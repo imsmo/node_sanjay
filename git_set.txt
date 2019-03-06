@@ -1,0 +1,26 @@
+https://github.com/TeamCapermint/node_sessions.git
+
+Go to github, login, create repository
+
+git install on computer
+
+git clone url
+cd folder
+{
+
+git init
+
+.gitignore
+
+node_modules/
+
+git add remote ..
+
+}
+
+
+git add .
+
+git commit -m "message of commit"
+
+git push
