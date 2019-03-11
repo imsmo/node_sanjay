@@ -54,6 +54,7 @@ module.exports = function(router) {
                 return res.send(Service.response(0, err, null));
             });
     });
+    
     //List Array using Async Await method
     router.get('/list_note_async_await', async(req, res) => {
         try {
