@@ -1,8 +1,9 @@
 var db_config = require('./db');
 
 const config = function() {
-
+	this.port = db_config.port;
     this.live_url = db_config.live_url;
+    this.pre = db_config.pre;
 
     //mongodb://<dbuser>:<dbpassword>@ds121321.mlab.com:21321/ifh_dev
     this.dbLocal = {

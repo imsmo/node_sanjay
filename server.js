@@ -7,19 +7,22 @@ const http = require('http');
 const router = express.Router();
 const _ = require('lodash');
 
+// Config
+const config = require('./config');
+
 //Database conncetion
-const db = require('./models/connection');
+const db = require('./api/models/connection');
 
 //Internal Inports
-const Notes = require('./notes');
+//const Notes = require('./notes');
 
 //Create HTTPServer
 const server = http.createServer(app);
 
 //Set View Engine
 app.set('views', path.join(__dirname, 'views'));
-app.use('/', express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
+app.use('/', express.static(path.join(__dirname, 'public')));
 app.engine('.html', require('ejs').renderFile);
 
 // BodyParser Middleware for all routes
@@ -29,14 +32,18 @@ app.use(bodyParser.urlencoded({
     type: 'application/x-www-form-urlencoded'
 }));
 
-//Ser Routes
+//Set Routes
+require('./routes/admin')(router);
 require('./routes/index')(router);
-app.use('/', router);
 
-//Start server
-var PORT = 3000;
-server.listen(PORT, function() {
-    console.log("Server listing at Port " + PORT);
+app.use('/', router);
+app.use(function (err){
+	console.log("EXCEPTION OCCURRED",err);
+});
+
+// Start Server
+app.listen(config.port, function () {
+	console.log("Server listening at PORT:" + config.port);
 });
 
 //module.exports = server;

@@ -1,8 +1,7 @@
-const db_config = function() {
+process.env.NODE_ENV = 'local';
 
-    this.live_url = 'http://192.168.2.13:3001';
-    process.env.NODE_ENV = 'local';
-    this.pre = 'http://';
-}
-
-module.exports = new db_config();
+module.exports = {
+    port : 3000,
+    live_url : "http://localhost:"+this.port,
+    pre : "http://"
+};
